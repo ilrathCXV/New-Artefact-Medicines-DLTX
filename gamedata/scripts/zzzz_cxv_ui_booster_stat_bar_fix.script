@@ -1,0 +1,104 @@
+if not zz_ui_inventory_better_stats_bars then return end
+
+-- Load the defaults
+local function load_defaults()
+	local t = {}
+	local op = better_stats_bars_mcm.op
+	for i, v in ipairs(op.gr) do
+		if v.def ~= nil then
+			t[v.id] = v.def
+		end
+	end
+	return t
+end
+local settings = load_defaults()
+
+local function load_settings()
+	settings = load_defaults()
+	if ui_mcm then
+		for k, v in pairs(settings) do
+			settings[k] = ui_mcm.get("better_stats_bars/" .. k)
+		end
+	end
+end
+
+local function read_colors(color)
+	return GetARGB(
+		settings[color .. "_color_a"],
+		settings[color .. "_color_r"],
+		settings[color .. "_color_g"],
+		settings[color .. "_color_b"]
+	)
+end
+
+--------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------
+
+-- ARX formula
+zz_ui_inventory_better_stats_bars.ui_inventory.UIInventory.GetARXImmunity = function(self, bar, stats)
+	local stats = stats or {}
+	local x = stats.artefact or 0
+	local y = stats.booster_protection or 0
+	local z = stats.booster_immunity
+	local outfit = stats.outfit
+	local helm = stats.helm
+	
+	if bar == "burn" then bar = "fire" end
+	-- Special case for psy damage
+	if bar == "psi" then
+		local psi_val = ((outfit or self.stat_outfit[bar]) + (helm or self.stat_helm[bar]) + self.stat_arty[bar] + self.stat_boost[bar] + x + y) / (self.stat_list[bar].max * ((self:GetActorImmunity(bar) - (z or self.booster_immunities[bar])) / self:GetActorImmunity(bar)))
+		return psi_val
+	else
+		-- printf("[Better Stats zz_ui] Current Stat: %s", bar)
+		local val = clamp(self.stat_arty[bar] + x, -0.99, 0.99)
+		if val ~= 0 then
+			if val > 0 then
+				val = 0.998422 - (1.09253 * val ^ 0.735966)
+				val = ((outfit or self.stat_outfit[bar]) + (helm or self.stat_helm[bar]) + y + self.stat_boost[bar]) / (self.stat_list[bar].max * ((self:GetActorImmunity(bar) - (z or self.booster_immunities[bar])) / self:GetActorImmunity(bar)) * math.max(0.01, val))
+			else
+				val = 0.998422 - (1.09253 * (-val) ^ 0.735966)
+				val = ((outfit or self.stat_outfit[bar]) + (helm or self.stat_helm[bar]) + y + self.stat_boost[bar]) / (self.stat_list[bar].max * ((self:GetActorImmunity(bar) - (z or self.booster_immunities[bar])) / self:GetActorImmunity(bar)) * (2 - val))
+			end
+		else
+			val = ((outfit or self.stat_outfit[bar]) + (helm or self.stat_helm[bar]) + y + self.stat_boost[bar]) / (self.stat_list[bar].max * ((self:GetActorImmunity(bar) - (z or self.booster_immunities[bar])) / self:GetActorImmunity(bar)))
+		end
+		return val
+	end
+end
+
+zz_ui_inventory_better_stats_bars.ui_inventory.UIInventory.GetImmunity = function(self, bar, stats)
+	local stats = stats or {}
+	local x = stats.protection or 0
+	local y = stats.booster_immunity
+	local outfit = stats.outfit
+	local helm = stats.helm
+	
+	if bar == "burn" then bar = "fire" end
+	
+	if bar == "psi" then
+		if settings.use_game_values == "none" or psy_bar_patch then
+			return ((outfit or self.stat_outfit[bar]) + (helm or self.stat_helm[bar]) + self.stat_arty[bar] + self.stat_boost[bar] + x) / (self.stat_list[bar].max * ((self:GetActorImmunity(bar) - (y or self.booster_immunities[bar])) / self:GetActorImmunity(bar)))
+		else
+			return ((outfit or self.stat_outfit[bar]) + (helm or self.stat_helm[bar]) + self.stat_arty[bar] * 2 + self.stat_boost[bar] + x) / (self.stat_list[bar].max * ((self:GetActorImmunity(bar) - (y or self.booster_immunities[bar])) / self:GetActorImmunity(bar)))
+		end
+	else
+		return ((outfit or self.stat_outfit[bar]) + (helm or self.stat_helm[bar]) + self.stat_arty[bar] + self.stat_boost[bar] + x) / (self.stat_list[bar].max * ((self:GetActorImmunity(bar) - (y or self.booster_immunities[bar])) / self:GetActorImmunity(bar)))
+	end
+end
+
+zz_ui_inventory_better_stats_bars.ui_inventory.UIInventory.SetBonusStatValue = function(self, bar, old, new, min, max)
+	local min = min or 0
+	local max = max or 1
+	local new = clamp(new, min, max)
+	
+	if bar == "burn" then bar = "fire" end
+	
+	self.bonus_stat[bar].bar:SetProgressPos(new)
+	if new > old then
+		self.bonus_stat[bar].bar:SetColor(read_colors("positive"))
+	elseif new == old then
+		self.bonus_stat[bar].bar:SetColor(read_colors("neutral"))
+	else
+		self.bonus_stat[bar].bar:SetColor(read_colors("negative"))
+	end
+end

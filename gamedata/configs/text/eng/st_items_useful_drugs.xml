@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<!--
+	Medical Items + Drugs
+-->
+
+<string_table>
+
+	<string id="st_aloe_bandage">
+		<text>Aloe-vera Bandage</text>
+	</string>
+	<string id="st_aloe_bandage_descr">
+		<text>A bandage coated in aloe vera. Doesn't do much to stop bleeding, but does wonders for preventing and healing burns \n \n
+		%c[ui_gray_3]PROPERTIES:\n
+		%c[d_purple] • %c[ui_gray_2] significant thermal damage resistance bonus (30 percent)\n
+		%c[d_blue] • %c[0,232, 232, 232] first-aid %c[ui_gray_2]T%c[0,252,186,3]••• %c[ui_gray_2]A%c[0,252,186,3]••• %c[ui_gray_2]L%c[0,252,186,3]••• \n
+		</text>
+	</string>
+	
+	<string id="st_gabapentin">
+		<text>Gabapentin</text>
+	</string>
+	<string id="st_gabapentin_descr">
+		<text>A gaba-ergic drug used in the treatment of pain as well as in the treatment of anxiety in the case of patients with a history of drug abuse. It acts on the same receptors as Xanax and Diazepam without being a benzodiapine and without a possibility of abuse. In the Zone, this provides a good painkilling effect as well as a decent resistance to psychic attacks.\n \n
+		%c[ui_gray_3]PROPERTIES:\n
+		%c[d_blue] • %c[ui_gray_2] improves morale and mind protection against horrors of the Zone\n
+		%c[d_purple] • %c[ui_gray_2] minor ballistic resistance bonus (9 percent)\n
+		%c[d_purple] • %c[ui_gray_2] minor impact resistance bonus (9 percent)\n
+		%c[d_red] • %c[ui_gray_2] causes extreme dizziness\n
+		</text>
+	</string>
+	
+	<string id="st_ground_moonlight">
+		<text>Ground "Moonlight" Tablets</text>
+	</string>
+	<string id="st_ground_moonlight_descr">
+		<text>A prototype medication crafted by the Ecologists, crafted using the powder from a processed "Moonlight". These tablets provide the body with a significant energy boost and allows the body to withstand contact with voltages that could cause bodily harm otherwise. However, due to its volatile nature, it does drain the user's lifeforce in exchange for its benefits.\n \n
+		Users tend to describe the feeling as if an electric current runs through their body.\n \n	
+		%c[ui_gray_3]PROPERTIES:\n
+		%c[d_blue] • %c[ui_gray_2] Zone-produced\n
+		%c[d_blue] • %c[ui_gray_2] processed artefact\n
+		%c[d_purple] • %c[ui_gray_2] moderate shock resistance bonus (25 percent)\n
+		%c[d_blue] • %c[0,232, 232, 232] post-heals %c[ui_gray_2] H%c[0,232, 232, 232]••• %c[ui_gray_2]T%c[0,232, 232, 232]••• \n
+		%c[d_blue] • %c[ui_gray_2] strong dizziness removal effect\n
+		%c[d_red] • lose 20% HP over 20 seconds
+		</text>
+	</string>
+	
+	<string id="st_phytomenadione">
+		<text>Phytomenadione</text>
+	</string>
+	<string id="st_phytomenadione_descr">
+		<text>Also called Vitamin K. It has strong anticoagulant effects, and is useful in combat to reduce the severity of bleeding. Lasts for a long duration.\n \n
+		%c[ui_gray_3]PROPERTIES:\n
+		%c[d_blue] • %c[ui_gray_2] anticoagulant medicine\n
+		%c[d_purple] • %c[ui_gray_2] extremely large rupture resistance bonus (25 percent)\n
+		%c[d_blue] • %c[0,232, 232, 232] first-aid %c[ui_gray_2]   H%c[0,252,186,3]•••• %c[ui_gray_2]T%c[0,252,186,3]•••• %c[ui_gray_2]A%c[0,252,186,3]•• %c[ui_gray_2]L%c[0,252,186,3]•• \n
+		%c[d_red] • %c[ui_gray_2] causes very slight dizziness \n
+		</text>
+	</string>
+	
+	<string id="st_atropine">
+		<text>Atropine</text>
+	</string>
+	<string id="st_atropine_descr">
+		<text>An essential medicine used to increase heart rate. It is a strong anticholinergic medicine that is also used as an antidote to mushroom poisoning. Useful in the Zone to keep the blood pumping without overstimulating the body. Its action on acetylcholine also improves psychic resistance.\n \n
+		%c[ui_gray_3]PROPERTIES:\n
+		%c[d_blue] • %c[ui_gray_2] slightly improves morale and mind protection against horrors of the Zone\n
+		%c[d_blue] • %c[ui_gray_2] average dizziness removal effect\n				
+		</text>
+	</string>
+	
+	<string id="st_diazepam">
+		<text>Diazepam</text>
+	</string>
+	<string id="st_diazepam_descr">
+		<text>A strong benzodiazapine, used typically for its anticonvulsant properties to treat epillepsy or parkinsons. It can also treat panic disorders, but other benzodiazapines are preffered for that purpose. For a stalker such a calming drug is very useful for protection against a controller's attacks. It also has pain-killing properties, which can provide some relief from from the results of a fire fight. \n \n
+		%c[ui_gray_3]PROPERTIES:\n
+		%c[d_purple] • %c[ui_gray_2] minor impact resistance bonus (7.5 percent)\n
+		%c[d_purple] • %c[ui_gray_2] minor ballistic resistance bonus (7.5 percent)\n
+		%c[d_blue] • %c[ui_gray_2] improves morale and mind protection against horrors of the Zone\n
+		%c[d_blue] • %c[ui_gray_2] immediate sleepiness induction\n
+		</text>
+	</string>
+	
+	<string id="st_ground_meatchunk">
+		<text>Ground "Meatchunk" Tablets</text>
+	</string>
+	<string id="st_ground_meatchunk_descr">
+		<text>The first prototype medication crafted by the Ecologists, crafted using the powder from a processed "Meat Chunk". It provides substantial resistance against any chemical-based burns and helps mended parts of the lower body to heal. However, the strength of these pills come at the cost of some of the user's lifeforce.\n \n
+		Users tend to report that said tablets leave a disgusting metallic taste in their mouth, sometimes lasting for days.\n \n
+		%c[ui_gray_3]PROPERTIES:\n
+		%c[d_blue] • %c[ui_gray_2] Zone-produced\n
+		%c[d_blue] • %c[ui_gray_2] processed artefact\n
+		%c[d_blue] • %c[0,232, 232, 232] post-heals %c[ui_gray_2] %c[ui_gray_2]T%c[0,232, 232, 232]••• %c[ui_gray_2]L%c[0,232, 232, 232]• \n
+		%c[d_red] • %c[ui_gray_2] causes very slight dizziness \n
+		%c[d_red] • lose 20% HP over 20 seconds\n
+		</text>
+	</string>
+	
+	<string id="st_ground_goldfish">
+		<text>Ground "Goldfish" Tablets</text>
+	</string>
+	<string id="st_ground_goldfish_descr">
+		<text>A strong prototype medication crafted by the Ecologists, crafted using the powder from a processed "Goldfish". These pills turn the body into a powerful anti-gravity field while in effect. However, this anti-gravity field puts immense stress on the body as well as resulting in a user's limbs taking slight interal damage.\n \n
+		Users tend to perceive that gravity ceases to exist around them. This correlates with recent reports of some stalkers jumping off of building, only to fall to their death.\n \n
+		%c[ui_gray_3]PROPERTIES:\n
+		%c[d_blue] • %c[ui_gray_2] Zone-produced\n
+		%c[d_blue] • %c[ui_gray_2] processed artefact\n
+		%c[d_blue] • %c[ui_gray_2] very significant carry weight bonus\n
+		%c[d_blue] • %c[ui_gray_2] slightly improves morale and mind protection against horrors of the Zone\n
+		%c[d_blue] • %c[ui_gray_2] slight dizzines removal effect\n
+		%c[d_red] • lose 40% HP over 20 seconds\n
+		%c[d_red] • a random limb will receive limb damage\n
+		</text>
+	</string>
+	
+	<string id="st_empty_serum">
+		<text>"Empty" Serum</text>
+	</string>
+	<string id="st_empty_serum_descr">
+		<text>An almost "super soldier" serum utilizing a liquified "Empty" artefact. The serum allows the user to greatly reduce almost any damage done to them from many sources in the Zone. However, one must be careful when taking this serum as it will greatly tire the body.\n \n
+		The procedure for creating such a serum was discovered by brave stalkers who dared to explore the hidden labs within the Zone.\n \n
+		%c[ui_gray_3]PROPERTIES:\n
+		%c[d_blue] • %c[ui_gray_2] Zone produced\n
+		%c[d_blue] • %c[ui_gray_2] processed artefact\n
+		%c[d_purple] • %c[ui_gray_2] heavy damage resistance bonus (50 percent)\n
+		%c[d_blue] • %c[0,252,186,3] first-aid %c[ui_gray_2] H%c[0,252,186,3]•••••••• %c[ui_gray_2]T%c[0,252,186,3]••••• %c[ui_gray_2]A%c[0,252,186,3]•••• %c[ui_gray_2]L%c[0,252,186,3]•••• \n
+		%c[d_red] • %c[ui_gray_2] causes severe dizziness\n
+		%c[d_red] • lose 20% HP over 20 seconds\n
+		</text>
+	</string>
+	
+</string_table>
+

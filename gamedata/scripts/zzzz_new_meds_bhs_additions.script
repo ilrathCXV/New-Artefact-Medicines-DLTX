@@ -1,0 +1,108 @@
+-- Add limb-healing properties to new items 
+if not zzz_player_injuries.medkits then
+	printf("%c[d_red] [ERROR - New Meds] You are using an incompatible modified version of BHS. Extra effects will not work!")
+	return
+end
+
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+-- simple stateless timed events (Credit to Arti)
+timed_effects = {}
+
+function add_effect(key, duration, effect_function)
+	local effect = {
+		duration = duration,
+		effect = effect_function
+	}
+
+	if key then
+		timed_effects[key] = effect
+	else
+		table_insert(timed_effects, effect)
+	end
+end
+
+-- Processing the effects
+-- Whatever lowest time is set for effect, it will be processed at least once on process cycle
+local function process_timed_effects()
+	for key, props in pairs(timed_effects) do
+		if props.effect then
+			props.effect()
+            props.duration = clamp(props.duration - 1, 0, 999)
+		end
+		if props.duration == 0 then
+			timed_effects[key] = nil
+		end
+	end
+end
+
+local interval = 1000
+local time = 0
+function actor_on_update()
+	tg = time_global()
+	--trace("current tg %s", tg)
+	if tg < time + interval then return end
+	time = tg
+	process_timed_effects()
+end
+
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+-- Need to add on first_update or else it won't get included
+function add_new_meds()
+	printf("[New Meds] Adding new items to limb healing")
+    zzz_player_injuries.medkits.phytomenadione		= {head=4,torso=4,rightleg=2,leftleg=2,rightarm=2,leftarm=2,timeregen=60000}
+	zzz_player_injuries.medkits.aloe_bandage		= {torso=3,rightleg=3,leftleg=3,rightarm=3,leftarm=3,timeregen=40000}
+	zzz_player_injuries.medkits.empty_serum			= {head=8,torso=5,rightleg=4,leftleg=4,rightarm=4,leftarm=4,timeregen=60000}
+
+	zzz_player_injuries.healhelp.ground_meatchunk	= {torso=3,rightleg=1,leftleg=1}
+	zzz_player_injuries.healhelp.ground_moonlight	= {head=3,torso=3}
+end
+
+new_meds_health_damage = {}
+new_meds_health_damage.ground_meatchunk	= 20
+new_meds_health_damage.ground_goldfish	= 40
+new_meds_health_damage.empty_serum		= 25
+new_meds_health_damage.ground_moonlight = 20
+
+new_meds_limb_damage = {}
+new_meds_limb_damage.ground_goldfish	= 1
+
+local function SaveNewLimbHealth()
+	utils_obj.save_var(db.actor,"health.head",zzz_player_injuries.health.head)
+	utils_obj.save_var(db.actor,"health.torso",zzz_player_injuries.health.torso)
+	utils_obj.save_var(db.actor,"health.rightarm",zzz_player_injuries.health.rightarm)
+	utils_obj.save_var(db.actor,"health.leftarm",zzz_player_injuries.health.leftarm)
+	utils_obj.save_var(db.actor,"health.rightleg",zzz_player_injuries.health.rightleg)
+	utils_obj.save_var(db.actor,"health.leftleg",zzz_player_injuries.health.leftleg)
+end
+
+local function take_damage(obj,objname)
+	if new_meds_health_damage[objname] then
+		add_effect(objname.."_health_damage", 20, 
+		function()
+			actor_health = db.actor.health
+			health_reduction = new_meds_health_damage[objname] * 0.0005
+			db.actor:set_health_ex(clamp(actor_health - health_reduction, 0, 1))
+		end)
+	end
+	
+	if new_meds_limb_damage[objname]
+		limb_hurt = math.random(1,4)
+		-- 1 = rightarm
+		-- 2 = leftarm
+		-- 3 = rightleg
+		-- 4 = leftleg
+		if limb_hurt == 1 then zzz_player_injuries.health.rightarm=zzz_player_injuries.health.rightarm-new_meds_limb_damage[objname] end
+		if limb_hurt == 2 then zzz_player_injuries.health.leftarm=zzz_player_injuries.health.leftarm-new_meds_limb_damage[objname] end
+		if limb_hurt == 3 then zzz_player_injuries.health.rightleg=zzz_player_injuries.health.rightleg-new_meds_limb_damage[objname] end
+		if limb_hurt == 4 then zzz_player_injuries.health.leftleg=zzz_player_injuries.health.leftleg-new_meds_limb_damage[objname] end
+		SaveNewLimbHealth()
+	end
+end
+
+function on_game_start()
+    RegisterScriptCallback("actor_on_first_update", add_new_meds)
+	RegisterScriptCallback("actor_on_item_use",take_damage)
+	RegisterScriptCallback("actor_on_update", actor_on_update)
+end
